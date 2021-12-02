@@ -1,0 +1,36 @@
+<?php
+
+// namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class RppK13_KegiatanPembelajaranPresensi extends Model
+{
+    use HasFactory;
+
+    public function __construct($attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = 'rpp_k13_kegiatan_pembelajaran_presensi';
+    }       
+
+    protected $fillable = [
+        'sekolah_id',
+        'uuid',
+        'rpp_id',
+        'guru_id',
+        'siswa_id',
+        'user_id',
+        'tema_id',
+        'subtema_id',
+        'tanggal',
+        'presensi',
+    ];
+
+    protected $hidden = [
+    ];
+
+    protected $casts = [
+    ];    
+}
