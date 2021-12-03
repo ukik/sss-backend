@@ -23,7 +23,31 @@ class GuruJabatanController extends Controller
 
     public function index()
     {
-        $guru_jabatan = \GuruJabatan::all();
+
+        if(request()->keyword) {
+            $keyword = request()->keyword;
+            $guru_jabatan = \GuruJabatan::with(['guru' => function($query) use ($keyword) {
+                return $query->search([
+                    'nama_lengkap', 'nip'
+                ], $keyword);
+            }])
+            ->whereHas('guru', function($query) use ($keyword) {
+                return $query->search([
+                    'nama_lengkap', 'nip'
+                ], $keyword);
+            })
+            ->whereNotIn('jabatan_id', [1,2,7]);
+        } else {
+            $guru_jabatan = \GuruJabatan::with('guru')
+            ->whereNotIn('jabatan_id', [1,2,7]);
+        }
+
+        if(request()->group == 'filter_guru') {
+            $guru_jabatan->groupBy('guru_id');
+        }
+
+        $guru_jabatan = $guru_jabatan->paginate(25);
+
 
         return response()->json([
             'payload'   => [ 

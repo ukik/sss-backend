@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'v1', 'middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'v1', 
+    // 'middleware' => ['auth:sanctum']
+], function () {
 
     Route::resource('/guru_jabatan', \GuruJabatanController::class);
     Route::resource('/guru_kelas', \GuruKelasController::class);

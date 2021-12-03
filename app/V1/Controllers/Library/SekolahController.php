@@ -21,7 +21,14 @@ class SekolahController extends Controller
 
     public function index()
     {
-        $sekolah = \Sekolah::all();
+
+        if(request()->keyword) {
+            $sekolah = \Sekolah::search([
+                'nama_sekolah', 'nis'
+            ], request()->keyword)->paginate(25);
+        } else {
+            $sekolah = \Sekolah::paginate(25);
+        }
 
         return response()->json([
             'payload'   => [ 

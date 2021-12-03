@@ -9,10 +9,16 @@ class GuruJabatan extends Model
 {
     use HasFactory;
 
+    public $foreignKey = 'guru_id';
+
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->table = 'guru_jabatan';
+
+        $this->appends = [
+            'value', 'label'
+        ];        
     }   
 
     protected $fillable = [
@@ -23,6 +29,14 @@ class GuruJabatan extends Model
         'jadwal_id',
     ];
 
+    public function getValueAttribute() {
+        return $this->id;
+    }
+
+    public function getLabelAttribute() {
+        return $this->guru->nama_lengkap;
+    }
+
     protected $hidden = [
     ];
 
@@ -31,6 +45,6 @@ class GuruJabatan extends Model
 
     public function guru()
     {
-        return $this->belongsTo(\Guru::class);
+        return $this->belongsTo(\Guru::class, 'guru_id');
     }
 }

@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'v1/library/', 'middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'v1/library/',
+    // 'middleware' => ['auth:sanctum']
+], function () {
 
     Route::resource('/jabatan', \JabatanController::class);
     Route::resource('/jam', \JamController::class);

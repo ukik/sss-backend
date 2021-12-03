@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'v1/rpp_k13', 'middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'v1/rpp_k13', 
+    // 'middleware' => ['auth:sanctum']
+], function () {
     
     Route::resource('/', \RppK13_Controller::class);
     Route::resource('/indikator', \RppK13_IndikatorController::class);

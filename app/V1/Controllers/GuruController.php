@@ -21,7 +21,20 @@ class GuruController extends Controller
 
     public function index()
     {
-        $guru = \Guru::all();
+        if(request()->keyword) {
+            $guru = \Guru::with('guru')
+            ->search([
+                'nama_sekolah', 'nis'
+            ], request()->keyword)
+            ->whereNotIn('jabatan_id', [1,2,7])
+            ->paginate(25);
+        } else {
+            $guru = \Guru::with('guru')
+            ->whereNotIn('jabatan_id', [1,2,7])
+            ->paginate(25);
+        }
+
+
 
         return response()->json([
             'payload'   => [ 

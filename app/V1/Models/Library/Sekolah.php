@@ -13,6 +13,10 @@ class Sekolah extends Model
     {
         parent::__construct($attributes);
         $this->table = '__sekolah';
+
+        $this->appends = [
+            'value', 'label'
+        ];
     }       
 
     protected $fillable = [
@@ -39,7 +43,18 @@ class Sekolah extends Model
         'small_image',
     ];
 
+    public function getValueAttribute() {
+        return $this->id;
+    }
+
+    public function getLabelAttribute() {
+        return $this->nama_sekolah;
+    }
+
+
     protected $hidden = [
+        // 'id',
+        // 'nama_sekolah',
     ];
 
     protected $casts = [
